@@ -5,13 +5,16 @@
 
 #include "stdafx.h"
 #include "camera.h"
+#include <stdexcept>
 
 
 Camera::Camera(const glm::vec3 position, const glm::vec3 orientation, const float fov, const float aspectRatio)
 	: m_position(position)
 	, m_orientation(orientation)
-	, m_fov(fov)
-	, m_aspectRatio(aspectRatio) {}
+{
+	setFOV(fov);
+	setAspectRatio(aspectRatio);
+}
 
 
 Camera::Camera(const glm::vec3 position, const float fov, const float aspectRatio)
@@ -44,11 +47,19 @@ void Camera::setOrientation(const glm::vec3 orientation)
 
 void Camera::setFOV(const float fov)
 {
+	if (!(0.f < fov && fov < 180.f))
+	{
+		throw std::logic_error("Field-of-view angle must be between 0 and 180 degrees, exclusive.");
+	}
 	m_fov = fov;
 }
 
 
 void Camera::setAspectRatio(const float aspectRatio)
 {
+	if (!(0.f < aspectRatio))
+	{
+		throw std::logic_error("Aspect ratio must be strictly positive.");
+	}
 	m_aspectRatio = aspectRatio;
 }
