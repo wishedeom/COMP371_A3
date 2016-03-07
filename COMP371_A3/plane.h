@@ -9,7 +9,8 @@
 #include "glm.hpp"
 
 
-class Plane : public Primitive
+class Plane
+	: public Primitive
 {
 	glm::vec4 m_coefficients;
 
