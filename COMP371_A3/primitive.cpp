@@ -10,6 +10,15 @@ bool isGoodColourComponent(const float component);
 bool isGoodColour(const glm::vec3 colour);
 
 
+Primitive::Primitive(const glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
+{
+	setAmbientColour(ambientColour);
+	setDiffuseColour(diffuseColour);
+	setSpecularColour(specularColour);
+	setShininess(shininess);
+}
+
+
 glm::vec3 Primitive::ambientColour() const { return m_ambientColour; }
 
 
