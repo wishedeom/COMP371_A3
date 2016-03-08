@@ -1,3 +1,7 @@
+// Triangle.cpp
+// Author: Michael Deom
+// Date: March 7, 2016
+
 #include "stdafx.h"
 #include "Triangle.h"
 
