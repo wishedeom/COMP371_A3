@@ -27,13 +27,13 @@ std::pair<bool, double> Plane::intersection(const Ray ray)
 	// If the plane and ray are parallel, n . r' = 0, and there is no intersection.
 
 	const auto n = glm::vec3(m_coefficients);
-	const auto d = m_coefficients[3];
+	const auto d = m_coefficients.w;
 	const auto nDotRPrime = glm::dot(n, ray.direction());
 	
 	double t;
 	if (nDotRPrime == 0.f)
 	{
-		t = -1.;
+		t = -1.;	// Represents no intersection.
 	}
 	else
 	{

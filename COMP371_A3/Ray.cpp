@@ -23,7 +23,7 @@ void Ray::setDirection(const glm::vec3 direction)
 {
 	if (direction == glm::vec3(0.f, 0.f, 0.f))
 	{
-		throw std::logic_error("Ray direction must be non-negative.");
+		throw std::logic_error("Ray direction must be non-zero.");
 	}
 	m_direction = direction;
 }
