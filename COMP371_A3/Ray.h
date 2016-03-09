@@ -15,5 +15,6 @@ public:
 	glm::vec3 direction() const;
 	void setOrigin(const glm::vec3 origin);
 	void setDirection(const glm::vec3 direction);
+	glm::vec3 point(const float t) const;
 };
 

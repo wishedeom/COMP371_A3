@@ -11,10 +11,15 @@ Plane::Plane(const glm::vec3 normal, const glm::vec3 point, const glm::vec3 ambi
 	: Plane(glm::vec4(normal, -glm::dot(normal, point)), ambientColour, diffuseColour, specularColour, shininess) {}
 
 
+Plane::Plane(const glm::vec3 normal, const glm::vec3 point)
+	: Plane(normal, point, glm::vec3(0.f), glm::vec3(0.f), glm::vec3(0.f), 0.f) {}
+
+
 glm::vec4 Plane::coefficients() const { return m_coefficients; }
 
 
 void Plane::setCoefficients(const glm::vec4& coefficients) { m_coefficients = coefficients; }
+
 
 std::pair<bool, double> Plane::intersection(const Ray ray)
 {

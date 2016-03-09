@@ -19,6 +19,13 @@ Primitive::Primitive(const glm::vec3 ambientColour, const glm::vec3 diffuseColou
 }
 
 
+Primitive::Primitive()
+	: m_ambientColour(glm::vec3(0.f, 0.f, 0.f))
+	, m_diffuseColour(glm::vec3(0.f, 0.f, 0.f))
+	, m_specularColour(glm::vec3(0.f, 0.f, 0.f))
+	, m_shininess(0.f) {}
+
+
 glm::vec3 Primitive::ambientColour() const { return m_ambientColour; }
 
 
