@@ -21,7 +21,7 @@ glm::vec4 Plane::coefficients() const { return m_coefficients; }
 void Plane::setCoefficients(const glm::vec4& coefficients) { m_coefficients = coefficients; }
 
 
-std::pair<bool, double> Plane::intersection(const Ray ray)
+std::pair<bool, float> Plane::intersection(const Ray ray)
 {
 	// The intersection point between a plane (n, d) and a ray (r_0, r'), if it exists, is
 	//
@@ -35,7 +35,7 @@ std::pair<bool, double> Plane::intersection(const Ray ray)
 	const auto d = m_coefficients.w;
 	const auto nDotRPrime = glm::dot(n, ray.direction());
 	
-	double t;
+	float t;
 	if (nDotRPrime == 0.f)
 	{
 		t = -1.;	// Represents no intersection.

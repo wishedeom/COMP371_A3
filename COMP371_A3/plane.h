@@ -21,5 +21,5 @@ public:
 	Plane(const glm::vec3 normal, const glm::vec3 point);
 	glm::vec4 coefficients() const;
 	void setCoefficients(const glm::vec4& coefficients);
-	virtual std::pair<bool, double> intersection(const Ray ray);
+	virtual std::pair<bool, float> intersection(const Ray ray);
 };

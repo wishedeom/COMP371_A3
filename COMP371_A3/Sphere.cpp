@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-Sphere::Sphere(const glm::vec3 centre, const double radius, glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
+Sphere::Sphere(const glm::vec3 centre, const float radius, glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
 	: Primitive(ambientColour, diffuseColour, specularColour, shininess)
 	, m_centre(centre)
 {
@@ -15,13 +15,13 @@ Sphere::Sphere(const glm::vec3 centre, const double radius, glm::vec3 ambientCol
 glm::vec3 Sphere::centre() const { return m_centre; }
 
 
-double Sphere::radius() const { return m_radius; }
+float Sphere::radius() const { return m_radius; }
 
 
 void Sphere::setCentre(const glm::vec3 centre) { m_centre = centre; }
 
 
-void Sphere::setRadius(const double radius)
+void Sphere::setRadius(const float radius)
 {
 	if (radius <= 0.)
 	{
@@ -31,7 +31,7 @@ void Sphere::setRadius(const double radius)
 }
 
 
-std::pair<bool, double> Sphere::intersection(const Ray ray)
+std::pair<bool, float> Sphere::intersection(const Ray ray)
 {
 	const auto o = ray.origin();
 	const auto l = ray.direction();
@@ -45,7 +45,7 @@ std::pair<bool, double> Sphere::intersection(const Ray ray)
 	const auto lSq = glm::dot(l, l);
 	const auto discriminant = l_o_cSq - lSq * (o_cNSq - rSq);
 
-	double t;
+	float t;
 	if (discriminant < 0.)
 	{
 		t = -1.; // No intersection

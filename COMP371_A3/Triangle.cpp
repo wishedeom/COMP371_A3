@@ -39,7 +39,7 @@ glm::vec2 projectZX(const glm::vec3& point)
 	return glm::vec2(point.z, point.x);
 }
 
-double area(const glm::vec2& a, const glm::vec2& b, const glm::vec2& c)
+float area(const glm::vec2& a, const glm::vec2& b, const glm::vec2& c)
 {
 	return 0.5 * ((b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y));
 }
@@ -115,7 +115,7 @@ glm::vec3 Triangle::vertex(const int index) const {	return m_vertices[checkIndex
 void Triangle::setVertex(const int index, const glm::vec3 vertex) {	m_vertices[checkIndex(index)] = vertex; }
 
 
-std::pair<bool, double> Triangle::intersection(const Ray ray)
+std::pair<bool, float> Triangle::intersection(const Ray ray)
 {
 	auto planeIntersection = m_plane->intersection(ray);
 	auto t = planeIntersection.second;

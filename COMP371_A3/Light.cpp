@@ -9,6 +9,7 @@ Light::Light(const glm::vec3& position, const glm::vec3& colour)
 	setColour(colour);
 }
 
+
 glm::vec3 Light::position() const { return m_position; }
 
 
@@ -22,7 +23,7 @@ void Light::setColour(const glm::vec3& colour)
 {
 	if (!isGoodColour(colour))
 	{
-		throw std::logic_error("Ambient colour components must be between 0 and 1, inclusive.");
+		throw std::logic_error("Colour components must be between 0 and 1, inclusive.");
 	}
 	m_colour = colour;
 }
