@@ -11,6 +11,9 @@
 #include "Ray.h"
 #include <utility>
 
+bool isGoodColourComponent(const float component);
+bool isGoodColour(const glm::vec3 colour);
+
 class Primitive
 {
 protected:

@@ -6,9 +6,6 @@
 #include "primitive.h"
 #include <stdexcept>
 
-bool isGoodColourComponent(const float component);
-bool isGoodColour(const glm::vec3 colour);
-
 
 Primitive::Primitive(const glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
 {
