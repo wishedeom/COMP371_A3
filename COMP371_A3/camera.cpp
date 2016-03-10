@@ -12,17 +12,12 @@ const int Camera::horPixels = 800;
 const int Camera::verPixels = 800;
 
 
-Camera::Camera(const glm::vec3 position, const glm::vec3 orientation, const float fov, const float aspectRatio)
+Camera::Camera(const glm::vec3 position, const float fov, const float aspectRatio)
 	: m_position(position)
-	, m_orientation(orientation)
 {
 	setFOV(fov);
 	setAspectRatio(aspectRatio);
 }
-
-
-Camera::Camera(const glm::vec3 position, const float fov, const float aspectRatio)
-	: Camera(position, glm::vec3(0.f, 0.f, -1.f), fov, aspectRatio) {}
 
 
 void Camera::updateImagePlaneDimensions()
@@ -33,9 +28,6 @@ void Camera::updateImagePlaneDimensions()
 
 
 glm::vec3 Camera::position() const { return m_position; }
-
-
-glm::vec3 Camera::orientation() const { return m_orientation; }
 
 
 float Camera::fov() const { return m_fov; }
@@ -50,12 +42,6 @@ float Camera::focalLength() const {	return m_focalLength; }
 void Camera::setPosition(const glm::vec3 position)
 {
 	m_position = position;
-}
-
-
-void Camera::setOrientation(const glm::vec3 orientation)
-{
-	m_orientation = orientation;
 }
 
 
@@ -92,16 +78,40 @@ void Camera::setFocalLength(const float focalLength)
 }
 
 
-glm::vec3 Camera::getPixelCoordinates(const int i, const int j)
+glm::vec3 Camera::getPixelCoordinates(const int i, const int j) const
 {
 	const auto imagePlaneCoords = glm::vec3(getPixelImageCoordinates(i, j), -m_focalLength);
 	return m_position + imagePlaneCoords;
 }
 
 
-glm::vec2 Camera::getPixelImageCoordinates(const int i, const int j)
+glm::vec2 Camera::getPixelImageCoordinates(const int i, const int j) const
 {
+	if (!(isGoodVerPixel(i) && isGoodHorPixel(j)))
+	{
+		throw std::logic_error("Pixel index must be between 0 and number of pixels.");
+	}
 	const auto x = m_width * ((float)i / horPixels - 0.5f) + 0.5f;
 	const auto y = m_height * ((float)i / verPixels - 0.5f) + 0.5f;
 	return glm::vec2(x, y);
+}
+
+
+bool Camera::isGoodVerPixel(const int i) const
+{
+	return (0 <= i && i < verPixels);
+}
+
+
+bool Camera::isGoodHorPixel(const int j) const
+{
+	return (0 <= j && j < horPixels);
+}
+
+
+Ray Camera::rayThroughPixel(const int i, const int j) const
+{
+	auto pixel = getPixelCoordinates(i, j);
+	auto direction = pixel - m_position;
+	return Ray(pixel, direction);
 }

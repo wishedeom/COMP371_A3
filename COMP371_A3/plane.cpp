@@ -15,6 +15,9 @@ Plane::Plane(const glm::vec3 normal, const glm::vec3 point)
 	: Plane(normal, point, glm::vec3(0.f), glm::vec3(0.f), glm::vec3(0.f), 0.f) {}
 
 
+Plane::~Plane() {};
+
+
 glm::vec4 Plane::coefficients() const { return m_coefficients; }
 
 

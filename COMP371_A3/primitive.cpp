@@ -23,6 +23,9 @@ Primitive::Primitive()
 	, m_shininess(0.f) {}
 
 
+Primitive::~Primitive() {}
+
+
 glm::vec3 Primitive::ambientColour() const { return m_ambientColour; }
 
 

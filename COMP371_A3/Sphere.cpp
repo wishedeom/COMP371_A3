@@ -12,6 +12,9 @@ Sphere::Sphere(const glm::vec3 centre, const float radius, glm::vec3 ambientColo
 }
 
 
+Sphere::~Sphere() {}
+
+
 glm::vec3 Sphere::centre() const { return m_centre; }
 
 

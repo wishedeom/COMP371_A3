@@ -9,32 +9,27 @@
 #pragma once
 
 #include "glm.hpp"
+#include "Ray.h"
 
 
 class Camera
 {
 	glm::vec3 m_position;		// The camera's position
-	glm::vec3 m_orientation;	// The direction the camera is pointing
 	float m_fov;				// The angle of the camera's field-of-view, in degrees. Must be between 0 and 180, exclusive.
 	float m_aspectRatio;		// The ratio between the width and height of the viewport. Must be greater than 0.
-	float m_focalLength;
+	float m_focalLength;		// The distance between the camera and it's image plane
 	float m_width;
 	float m_height;
 
 	void updateImagePlaneDimensions();
-	glm::vec2 getPixelImageCoordinates(const int i, const int j);
+	glm::vec2 getPixelImageCoordinates(const int i, const int j) const;
+	bool isGoodVerPixel(const int i) const;
+	bool isGoodHorPixel(const int j) const;
 
 public:
 	
 	static const int horPixels;
 	static const int verPixels;
-
-	// Constructs a camera with a given initial position, orientation, FOV, and aspect ratio.
-	// position: The camera's initial position.
-	// orientation: The camera's initial orientation.
-	// fov: The camera's initial field of view angle, in degrees. Must be between 0 and 180, exclusive.
-	// aspectRatio: The camera's initial aspect ratio. Must be greater than 0.
-	Camera(const glm::vec3 position, const glm::vec3 orientation, const float fov, const float aspectRatio);
 	
 	
 	// Constructs a camera with a given initial position, FOV, and aspect ratio, and an initial orientation in the negative z-direction.
@@ -46,10 +41,6 @@ public:
 
 	// Returns the camera's position.
 	glm::vec3 position() const;
-
-
-	// Returns the camera's orientation.
-	glm::vec3 orientation() const;
 
 
 	// Returns the camera's field-of-view (FOV) angle.
@@ -68,11 +59,6 @@ public:
 	void setPosition(const glm::vec3 position);
 
 
-	// Orients the camera to a new orientation.
-	// orientation: The camera's initial orientation.
-	void setOrientation(const glm::vec3 orientation);
-
-
 	// Sets the camera's field of view angle.
 	// fov: The camera's new field-of-view angle, in degrees. Must be between 0 and 180, exclusive.
 	void setFOV(const float fov);
@@ -85,5 +71,8 @@ public:
 	void setFocalLength(const float focalLength);
 
 
-	glm::vec3 getPixelCoordinates(const int i, const int j);
+	glm::vec3 getPixelCoordinates(const int i, const int j) const;
+
+
+	Ray rayThroughPixel(const int i, const int j) const;
 };
