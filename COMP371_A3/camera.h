@@ -22,6 +22,7 @@ class Camera
 	float m_height;
 
 	void updateImagePlaneDimensions();
+	glm::vec2 getPixelImageCoordinates(const int i, const int j);
 
 public:
 	

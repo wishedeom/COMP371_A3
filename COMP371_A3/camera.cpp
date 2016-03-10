@@ -94,6 +94,14 @@ void Camera::setFocalLength(const float focalLength)
 
 glm::vec3 Camera::getPixelCoordinates(const int i, const int j)
 {
-	//TODO
-	return glm::vec3();
+	const auto imagePlaneCoords = glm::vec3(getPixelImageCoordinates(i, j), -m_focalLength);
+	return m_position + imagePlaneCoords;
+}
+
+
+glm::vec2 Camera::getPixelImageCoordinates(const int i, const int j)
+{
+	const auto x = m_width * ((float)i / horPixels - 0.5f) + 0.5f;
+	const auto y = m_height * ((float)i / verPixels - 0.5f) + 0.5f;
+	return glm::vec2(x, y);
 }
