@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Scene.h"
+#include "Camera.h"
+#include "Intersection.h"
 
 
 Scene::Scene(const Camera& camera)
@@ -21,30 +23,23 @@ void Scene::addLight(Light* l)
 }
 
 
-std::pair<bool, float> Scene::closestIntersection(const int i, const int j)
+std::pair<Intersection*, Primitive*> Scene::closestIntersection(const int i, const int j) const
 {
 	const auto ray = m_camera->rayThroughPixel(i, j);
-	bool intersectsAny = false;
-	float t;
+	Intersection* closestIntersection = nullptr;
+	Primitive* closestPrimitive = nullptr;
 	for (auto primitive : m_primitives)
 	{
-		const auto intersection = primitive->intersection(ray);
-		if (intersection.first)
+		Intersection intersection(ray, *primitive);
+		if (intersection.hits() && (closestIntersection == nullptr || intersection.distance() < closestIntersection->distance()))
 		{
-			if (!intersectsAny)
-			{
-				t = intersection.second;
-				intersectsAny = true;
-			}
-			else if (intersection.second < t)
-			{
-				t = intersection.second;
-			}
-		}
-		if (!intersectsAny)
-		{
-			t = -1.0f;
+			closestIntersection = &intersection;
+			closestPrimitive = primitive;
 		}
 	}
-	return std::make_pair(intersectsAny, t);
+	if (closestIntersection = nullptr)
+	{
+		closestIntersection = &Intersection();	// A miss
+	}
+	return std::make_pair(closestIntersection, closestPrimitive);
 }

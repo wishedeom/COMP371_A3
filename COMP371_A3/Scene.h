@@ -1,20 +1,21 @@
 #pragma once
-#include "Camera.h"
-#include "Primitive.h"
-#include "Light.h"
 #include <vector>
 
+class Camera;
+class Intersection;
+class Primitive;
+class Light;
 
 class Scene
 {
 	const Camera* const m_camera;
-	std::vector<const Primitive*> m_primitives;
-	std::vector<const Light*> m_lights;
+	std::vector<Primitive*> m_primitives;
+	std::vector<Light*> m_lights;
 
 public:
 	Scene(const Camera& camera);
 	~Scene();
 	void addPrimitive(Primitive* p);
 	void addLight(Light* l);
-	std::pair<bool, float> closestIntersection(const int i, const int j);
+	std::pair<Intersection*, Primitive*> Scene::closestIntersection(const int i, const int j) const;
 };
