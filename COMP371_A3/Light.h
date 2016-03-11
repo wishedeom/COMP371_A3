@@ -1,6 +1,6 @@
 #pragma once
 #include "glm.hpp"
-#include "primitive.h"
+#include "Primitive.h"
 
 class Light
 {

@@ -34,5 +34,5 @@ public:
 	void setDiffuseColour(const glm::vec3 diffuseColour);
 	void setSpecularColour(const glm::vec3 specularColour);
 	void setShininess(const float shininess);
-	virtual std::pair<bool, float> intersection(const Ray ray) = 0;
+	virtual std::pair<bool, float> intersection(const Ray ray) const = 0;
 };

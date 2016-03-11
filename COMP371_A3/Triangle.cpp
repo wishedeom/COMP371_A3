@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "Triangle.h"
-#include "plane.h"
+#include "Plane.h"
 
 bool isGoodIndex(const int index)
 {
@@ -63,7 +63,7 @@ Triangle::~Triangle()
 }
 
 
-std::pair<std::vector<glm::vec2>, glm::vec2> Triangle::project(const glm::vec3& intersection)
+std::pair<std::vector<glm::vec2>, glm::vec2> Triangle::project(const glm::vec3& intersection) const
 {
 	const auto normal = glm::vec3(m_plane->coefficients());
 	std::vector<glm::vec2> vertexProjection(3);
@@ -115,7 +115,7 @@ glm::vec3 Triangle::vertex(const int index) const {	return m_vertices[checkIndex
 void Triangle::setVertex(const int index, const glm::vec3 vertex) {	m_vertices[checkIndex(index)] = vertex; }
 
 
-std::pair<bool, float> Triangle::intersection(const Ray ray)
+std::pair<bool, float> Triangle::intersection(const Ray ray) const
 {
 	auto planeIntersection = m_plane->intersection(ray);
 	auto t = planeIntersection.second;

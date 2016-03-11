@@ -1,18 +1,18 @@
 #pragma once
-#include "camera.h"
-#include "primitive.h"
+#include "Camera.h"
+#include "Primitive.h"
 #include "Light.h"
 #include <vector>
 
 
 class Scene
 {
-	Camera* m_camera;
-	std::vector<Primitive*> m_primitives;
-	std::vector<Light*> m_lights;
+	const Camera* const m_camera;
+	std::vector<const Primitive*> m_primitives;
+	std::vector<const Light*> m_lights;
 
 public:
-	Scene(Camera* camera);
+	Scene(const Camera& camera);
 	~Scene();
 	void addPrimitive(Primitive* p);
 	void addLight(Light* l);

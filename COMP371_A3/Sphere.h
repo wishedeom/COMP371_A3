@@ -1,5 +1,5 @@
 #pragma once
-#include "primitive.h"
+#include "Primitive.h"
 #include "glm.hpp"
 
 class Sphere :
@@ -15,6 +15,6 @@ public:
 	float radius() const;
 	void setCentre(const glm::vec3 centre);
 	void setRadius(const float radius);
-	virtual std::pair<bool, float> intersection(const Ray ray);
+	virtual std::pair<bool, float> intersection(const Ray ray) const;
 };
 

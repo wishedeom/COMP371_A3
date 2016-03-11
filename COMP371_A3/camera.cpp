@@ -4,7 +4,7 @@
 
 
 #include "stdafx.h"
-#include "camera.h"
+#include "Camera.h"
 #include <stdexcept>
 
 

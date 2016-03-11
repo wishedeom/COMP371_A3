@@ -2,24 +2,11 @@
 #include "Scene.h"
 
 
-Scene::Scene(Camera* camera)
-	: m_camera(camera)
-	, m_primitives(0)
-	, m_lights(0) {}
+Scene::Scene(const Camera& camera)
+	: m_camera(&camera) {}
 
 
-Scene::~Scene()
-{
-	delete m_camera;
-	for (auto p : m_primitives)
-	{
-		delete p;
-	}
-	for (auto l : m_lights)
-	{
-		delete l;
-	}
-}
+Scene::~Scene() {}
 
 
 void Scene::addPrimitive(Primitive* p)

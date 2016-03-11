@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "primitive.h"
+#include "Primitive.h"
 #include "glm.hpp"
 #include "Triangle.h"
 
@@ -22,5 +22,5 @@ public:
 	~Plane();
 	glm::vec4 coefficients() const;
 	void setCoefficients(const glm::vec4& coefficients);
-	virtual std::pair<bool, float> intersection(const Ray ray);
+	virtual std::pair<bool, float> intersection(const Ray ray) const;
 };

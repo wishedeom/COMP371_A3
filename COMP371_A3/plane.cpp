@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "plane.h"
+#include "Plane.h"
 
 
 Plane::Plane(const glm::vec4& coefficients, const glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
@@ -24,7 +24,7 @@ glm::vec4 Plane::coefficients() const { return m_coefficients; }
 void Plane::setCoefficients(const glm::vec4& coefficients) { m_coefficients = coefficients; }
 
 
-std::pair<bool, float> Plane::intersection(const Ray ray)
+std::pair<bool, float> Plane::intersection(const Ray ray) const
 {
 	// The intersection point between a plane (n, d) and a ray (r_0, r'), if it exists, is
 	//

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "primitive.h"
+#include "Primitive.h"
 #include "glm.hpp"
 #include <vector>
 
@@ -18,7 +18,7 @@ class Triangle :
 	std::vector<glm::vec3> m_vertices;
 	Plane* m_plane;
 	Plane* plane();
-	std::pair<std::vector<glm::vec2>, glm::vec2> Triangle::project(const glm::vec3& intersection);
+	std::pair<std::vector<glm::vec2>, glm::vec2> Triangle::project(const glm::vec3& intersection) const;
 
 public:
 	Triangle(const glm::vec3 vertex1, const glm::vec3 vertex2, const glm::vec3 vertex3,
@@ -27,6 +27,6 @@ public:
 	std::vector<glm::vec3> vertices() const;
 	glm::vec3 vertex(const int index) const;
 	void setVertex(const int index, const glm::vec3 vertex);
-	virtual std::pair<bool, float> intersection(const Ray ray);
+	virtual std::pair<bool, float> intersection(const Ray ray) const;
 };
 

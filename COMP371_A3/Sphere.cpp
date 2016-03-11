@@ -34,7 +34,7 @@ void Sphere::setRadius(const float radius)
 }
 
 
-std::pair<bool, float> Sphere::intersection(const Ray ray)
+std::pair<bool, float> Sphere::intersection(const Ray ray) const
 {
 	const auto o = ray.origin();
 	const auto l = ray.direction();

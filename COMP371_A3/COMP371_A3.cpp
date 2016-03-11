@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Ray.h"
 #include "Sphere.h"
-#include "plane.h"
+#include "Plane.h"
 #include <iostream>
 #include <exception>
 

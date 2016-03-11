@@ -3,7 +3,7 @@
 // Date: March 6, 2016
 
 #include "stdafx.h"
-#include "primitive.h"
+#include "Primitive.h"
 #include <stdexcept>
 
 
