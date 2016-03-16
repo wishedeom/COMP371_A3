@@ -28,5 +28,6 @@ public:
 	glm::vec3 vertex(const int index) const;
 	void setVertex(const int index, const glm::vec3 vertex);
 	virtual std::pair<bool, float> intersection(const Ray ray);
+	virtual glm::vec3 normal(const glm::vec3& point) const;
 };
 

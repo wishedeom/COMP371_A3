@@ -16,5 +16,6 @@ public:
 	void setCentre(const glm::vec3 centre);
 	void setRadius(const float radius);
 	virtual std::pair<bool, float> intersection(const Ray ray);
+	virtual glm::vec3 normal(const glm::vec3& point) const;
 };
 

@@ -7,21 +7,35 @@
 #include "plane.h"
 #include <iostream>
 #include <exception>
+#include "Scene.h"
+#include "CImg.h"
 
 int main() try
 {
-	Ray r(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 1.f));
-	Sphere s(glm::vec3(0.f, 0.f, 0.f), 1., glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 0.f), 0.f);
-	Plane p(glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 0.f, 0.f), 0.f);
-	auto i = s.intersection(r);
-	if (i.first)
+	/*
+	cimg_library::CImg<float> image(400, 400, 1, 3, 0);
+	for (int i = 0; i < image.width(); i++)
 	{
-		std::cout << i.second << std::endl;
+		for (int j = 100; j < 300; j++)
+		{
+			//std::cout << red << "\t";
+			image(i, j, 0) = 255 * i / image.width();
+			image(i, j, 1) = 127;
+			image(i, j, 2) = 0;
+		}
 	}
-	else
+	cimg_library::CImgDisplay main_disp(image, "Render");
+	while (!main_disp.is_closed())
 	{
-		std::cout << "No intersection." << std::endl;
+		main_disp.wait();
 	}
+	*/
+
+	
+	Scene scene("scene1.txt");
+	scene.render();
+	
+
     return 0;
 }
 catch (std::exception& e)

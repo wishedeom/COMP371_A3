@@ -8,16 +8,19 @@
 #include <stdexcept>
 
 
-const int Camera::horPixels = 800;
-const int Camera::verPixels = 800;
+const int Camera::resolution = 800;
 
 
-Camera::Camera(const glm::vec3 position, const float fov, const float aspectRatio)
+Camera::Camera(const glm::vec3 position, const float fov, const float focalLength, const float aspectRatio)
 	: m_position(position)
 {
 	setFOV(fov);
 	setAspectRatio(aspectRatio);
+	setFocalLength(focalLength);
 }
+
+
+Camera::Camera() : Camera(glm::vec3(), 90.0, 1.0f, 1.0f) {}
 
 
 void Camera::updateImagePlaneDimensions()
@@ -87,31 +90,26 @@ glm::vec3 Camera::getPixelCoordinates(const int i, const int j) const
 
 glm::vec2 Camera::getPixelImageCoordinates(const int i, const int j) const
 {
-	if (!(isGoodVerPixel(i) && isGoodHorPixel(j)))
+	if (!(isGoodPixel(i)))
 	{
 		throw std::logic_error("Pixel index must be between 0 and number of pixels.");
 	}
-	const auto x = m_width * ((float)i / horPixels - 0.5f) + 0.5f;
-	const auto y = m_height * ((float)i / verPixels - 0.5f) + 0.5f;
+	const auto x = m_width * ((float)i / resolution - 0.5f) + 0.5f;
+	const auto y = -(m_height * ((float)j / resolution - 0.5f) + 0.5f);
 	return glm::vec2(x, y);
 }
 
 
-bool Camera::isGoodVerPixel(const int i) const
+bool Camera::isGoodPixel(const int i) const
 {
-	return (0 <= i && i < verPixels);
+	return (0 <= i && i < resolution);
 }
 
-
-bool Camera::isGoodHorPixel(const int j) const
-{
-	return (0 <= j && j < horPixels);
-}
 
 
 Ray Camera::rayThroughPixel(const int i, const int j) const
 {
 	auto pixel = getPixelCoordinates(i, j);
 	auto direction = pixel - m_position;
-	return Ray(pixel, direction);
+	return Ray(m_position, direction);
 }

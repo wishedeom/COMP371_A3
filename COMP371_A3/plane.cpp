@@ -51,3 +51,8 @@ std::pair<bool, float> Plane::intersection(const Ray ray)
 
 	return std::make_pair(intersects, t);
 }
+
+glm::vec3 Plane::normal(const glm::vec3& point) const
+{
+	return glm::normalize(glm::vec3(m_coefficients));
+}

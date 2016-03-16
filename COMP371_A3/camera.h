@@ -23,20 +23,21 @@ class Camera
 
 	void updateImagePlaneDimensions();
 	glm::vec2 getPixelImageCoordinates(const int i, const int j) const;
-	bool isGoodVerPixel(const int i) const;
-	bool isGoodHorPixel(const int j) const;
+	bool isGoodPixel(const int i) const;
 
 public:
 	
-	static const int horPixels;
-	static const int verPixels;
+	static const int resolution;
 	
 	
 	// Constructs a camera with a given initial position, FOV, and aspect ratio, and an initial orientation in the negative z-direction.
 	// position: The camera's initial position.
 	// fov: The camera's initial field of view angle, in degrees. Must be between 0 and 180, exclusive.
 	// aspectRatio: The camera's initial aspect ratio. Must be greater than 0.
-	Camera(const glm::vec3 position, const float fov, const float aspectRatio);
+	Camera(const glm::vec3 position, const float fov, const float focalLength, const float aspectRatio);
+
+
+	Camera();
 
 
 	// Returns the camera's position.

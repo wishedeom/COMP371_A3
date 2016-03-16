@@ -133,3 +133,9 @@ std::pair<bool, float> Triangle::intersection(const Ray ray)
 	}
 	return std::make_pair(intersectsTriangle, t);
 }
+
+
+glm::vec3 Triangle::normal(const glm::vec3& point) const
+{
+	return m_plane->normal(point);
+}

@@ -75,7 +75,14 @@ std::pair<bool, float> Sphere::intersection(const Ray ray)
 			t = -1.;
 		}
 	}
-	bool intersects = t >= 0.;
+	bool intersects = t > 0.0;
 
 	return std::make_pair(intersects, t);
+}
+
+
+glm::vec3 Sphere::normal(const glm::vec3& point) const
+{
+	const auto n = point - m_centre;
+	return n / glm::length(n);
 }
