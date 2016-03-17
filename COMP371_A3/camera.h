@@ -18,17 +18,13 @@ class Camera
 	float m_fov;				// The angle of the camera's field-of-view, in degrees. Must be between 0 and 180, exclusive.
 	float m_aspectRatio;		// The ratio between the width and height of the viewport. Must be greater than 0.
 	float m_focalLength;		// The distance between the camera and it's image plane
-	float m_width;
-	float m_height;
+	int m_width;
+	int m_height;
 
 	void updateImagePlaneDimensions();
 	glm::vec2 getPixelImageCoordinates(const int i, const int j) const;
-	bool isGoodPixel(const int i) const;
 
 public:
-	
-	static const int resolution;
-	
 	
 	// Constructs a camera with a given initial position, FOV, and aspect ratio, and an initial orientation in the negative z-direction.
 	// position: The camera's initial position.
@@ -53,6 +49,12 @@ public:
 
 
 	float focalLength() const;
+
+
+	int height() const;
+
+
+	int width() const;
 
 
 	// Moves the camera to a new position.

@@ -8,9 +8,6 @@
 #include <algorithm>
 
 
-float clamp(const float x, const float min, const float max);
-
-
 Primitive::Primitive(const glm::vec3 ambientColour, const glm::vec3 diffuseColour, const glm::vec3 specularColour, const float shininess)
 {
 	setAmbientColour(ambientColour);

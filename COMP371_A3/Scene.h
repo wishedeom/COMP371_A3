@@ -36,10 +36,11 @@ class Scene
 
 	std::tuple<bool, glm::vec3, Primitive*> closestPrimitiveIntersection(const int i, const int j) const;
 	bool seesLight(const Primitive& primitive, const glm::vec3& point, const Light& light) const;
-	glm::vec3 pixelColour(const int i, const int j) const;
+	glm::vec3 getPixelColour(const int i, const int j) const;
+	void setPixelColour(cimg_library::CImg<float>& image, const int i, const int j, const glm::vec3& colour) const;
 
 public:
-	const glm::vec3 ambientColour;
+	const glm::vec3 skyColour;
 
 	Scene(const std::string& filename);
 	~Scene();

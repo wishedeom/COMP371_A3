@@ -13,6 +13,7 @@
 
 bool isGoodColourComponent(const float component);
 bool isGoodColour(const glm::vec3 colour);
+float clamp(const float x, const float min, const float max);
 
 class Primitive
 {

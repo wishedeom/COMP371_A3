@@ -8,9 +8,6 @@
 #include <stdexcept>
 
 
-const int Camera::resolution = 800;
-
-
 Camera::Camera(const glm::vec3 position, const float fov, const float focalLength, const float aspectRatio)
 	: m_position(position)
 {
@@ -40,6 +37,12 @@ float Camera::aspectRatio() const { return m_aspectRatio; }
 
 
 float Camera::focalLength() const {	return m_focalLength; }
+
+
+int Camera::height() const { return m_height; }
+
+
+int Camera::width() const { return m_width; }
 
 
 void Camera::setPosition(const glm::vec3 position)
@@ -90,21 +93,10 @@ glm::vec3 Camera::getPixelCoordinates(const int i, const int j) const
 
 glm::vec2 Camera::getPixelImageCoordinates(const int i, const int j) const
 {
-	if (!(isGoodPixel(i)))
-	{
-		throw std::logic_error("Pixel index must be between 0 and number of pixels.");
-	}
-	const auto x = m_width * ((float)i / resolution - 0.5f) + 0.5f;
-	const auto y = -(m_height * ((float)j / resolution - 0.5f) + 0.5f);
+	const auto x = m_width * ((float)i / m_width - 0.5f) + 0.5f;
+	const auto y = -(m_height * ((float)j / m_height - 0.5f) + 0.5f);
 	return glm::vec2(x, y);
 }
-
-
-bool Camera::isGoodPixel(const int i) const
-{
-	return (0 <= i && i < resolution);
-}
-
 
 
 Ray Camera::rayThroughPixel(const int i, const int j) const

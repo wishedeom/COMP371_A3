@@ -15,7 +15,7 @@
 
 Scene::Scene(const std::string& filename)
 	: m_file(filename)
-	, ambientColour(255.0f)
+	, skyColour(0.1f, 0.0f, 0.0f)
 {
 	read();
 }
@@ -173,7 +173,7 @@ void Scene::readLine(const std::string& prefix)
 	m_file >> word;
 	if (word != prefix)
 	{
-		throw std::logic_error("Input file error: Unexpected" + word);
+		throw std::logic_error("Input file error: Unexpected \"" + word + "\"");
 	}
 }
 
@@ -217,44 +217,56 @@ bool Scene::seesLight(const Primitive& primitive, const glm::vec3& point, const 
 	return sees;
 }
 
-/*
-glm::vec3 Scene::pixelColour(const int i, const int j) const
-{
-	auto intersection = closestPrimitiveIntersection(i, j);
 
-}*/
+glm::vec3 Scene::getPixelColour(const int i, const int j) const
+{
+	glm::vec3 colour = skyColour;
+	const auto intersection = closestPrimitiveIntersection(i, j);
+	const auto hits = std::get<0>(intersection);
+	if (hits)
+	{
+		const auto point = std::get<1>(intersection);
+		const auto primitive = std::get<2>(intersection);
+		colour += primitive->ambientColour();
+		for (const auto& light : m_lights)
+		{
+			if (seesLight(*primitive, point, light))
+			{
+				const auto lightColour = light.colour();
+				const auto phongLight = primitive->phongIllumination(point, light.position(), m_camera.position());
+				colour += lightColour * phongLight;
+			}
+		}
+	}
+	return colour;
+}
+
+
+void Scene::setPixelColour(cimg_library::CImg<float>& image, const int i, const int j, const glm::vec3& colour) const
+{
+	image(i, j, 0) = colour.x;
+	image(i, j, 1) = colour.y;
+	image(i, j, 2) = colour.z;
+}
 
 
 void Scene::render() const
 {
 	std::cout << "Rendering..." << std::endl;
-	auto resolution = m_camera.resolution;
-	cimg_library::CImg<float> image(resolution, resolution, 1, 3);
-	for (int i = 0; i < resolution; i++)
+	cimg_library::CImg<float> image(m_camera.width(), m_camera.height(), 1, 3);
+	for (int i = 0; i < image.width(); i++)
 	{
-		for (int j = 0; j < resolution; j++)
+		if (i % 100 == 0)
 		{
-			auto intersection = closestPrimitiveIntersection(i, j);
-			glm::vec3 colour = ambientColour;
-			if (std::get<0>(intersection))
-			{
-				const auto point = std::get<1>(intersection);
-				const auto primitive = std::get<2>(intersection);
-				for (const auto& light : m_lights)
-				{
-					if (seesLight(*primitive, point, light))
-					{
-						const auto lightColour = light.colour();
-						const auto phongLight = primitive->phongIllumination(point, light.position(), m_camera.position());
-						colour += lightColour * phongLight;
-					}
-				}
-			}
-			image(i, j, 0) = colour.x;
-			image(i, j, 1) = colour.y;
-			image(i, j, 2) = colour.z;
+			std::cout << static_cast<int>(100.0f * i / image.width()) << "%" << std::endl;
+		}
+		for (int j = 0; j < image.height(); j++)
+		{
+			glm::vec3 pixelColour = getPixelColour(i, j);
+			setPixelColour(image, i, j, pixelColour);
 		}
 	}
+	image.normalize(0, 255);
 	image.save("render.bmp");
 	cimg_library::CImgDisplay main_disp(image, "Render");
 	while (!main_disp.is_closed())
